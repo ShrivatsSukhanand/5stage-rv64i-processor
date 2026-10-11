@@ -1,0 +1,15 @@
+ld   x1, 0(x0)
+addi x10, x0, 8
+ld   x2, 8(x0)
+add  x3, x1, x2
+sd   x3, 64(x0)
+slli x4, x3, 1
+addi x11, x0, 11
+sd   x4, 72(x0)
+add  x7, x3, x4
+beq  x1, x1, +8
+addi x17, x0, 99
+bne  x1, x1, +8
+bne  x1, x2, +8
+addi x18, x0, 99
+sd   x7, 80(x0)
