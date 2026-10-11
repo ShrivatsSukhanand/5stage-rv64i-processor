@@ -142,20 +142,6 @@ The RTL contains the following operation paths. The recorded test coverage is li
 
 ## 5. Verification
 
-RTL was simulated in **Xilinx Vivado XSim**. The following summarizes recorded runs; results apply to the listed programs and cases and not exhaustive ISA coverage.
-
-| Test | What it checks | Recorded result |
-|---|---|---|
-| Load → ALU → store smoke test | Basic load, dependent ALU operation, and store path | Passed for the tested sequence. |
-| R-type dependency / I-type arithmetic checks | Tested register-register dependency and immediate operations | Passed for the operations exercised; not exhaustive ALU verification. |
-| 34-instruction signed load/store-width test | SB/LB, SH/LH, SW/LW, SD/LD, byte-lane masks, sign extension, store-data forwarding | All programmed checks passed. Memory signatures included `mem[8]=7F807F807F807F80`, `mem[9]=007F8000007F8000`, `mem[10]=0000007F80000000`, `mem[11]=FFFFFFFFFFFFFF80`. |
-| Load-use hazard test | Load-dependent ALU and store instructions | 3 expected stall cycles; EX/MEM and MEM/WB store-data forwarding observed; checks passed. |
-| Branch/control-flow test | Taken/not-taken branches, redirects, flush behavior, wrong-path suppression, duplicate writeback detection | 4 branch executions, 2 redirects, no wrong-path marker writes, and one writeback each for checked branch-target instructions; passed after redirect/flush changes. |
-| 15-word integration test | Loads, arithmetic, shift, stores, three branch decisions, PC behavior, load-use stall and forwarding | 7/7 writebacks, 3/3 stores, 3 branches (2 taken/1 not taken), 2 redirects, 40 PC transitions with zero errors, 1 stall; all 32 registers and 512 memory words matched. All assertions passed. |
-| Prefix-sum loop regression | Eight 64-bit inputs, backward loop, prefix-sum calculation, mirrored stores, shifted values, dependencies, control flow | 72 ordered writebacks, 26 stores, 11 branch executions, 9 redirects, 160 PC transitions with zero errors, 9 stalls; all 512 memory words matched. All assertions passed. |
-
-### Included integration test assets
-
 - `verification/15_instr_test/` — 15 instruction program with equivalent assembly instructions, testbench used and recorded console results.
 - `verification/27_instr_test/` — 27 instruction program with equivalent assembly instructions, testbench used and recorded console results.
 
