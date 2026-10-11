@@ -1,0 +1,91 @@
+# run 1000ns
+====================================================
+ RV64I SEEDED PREFIX-SUM / PIPELINE STRESS TEST
+ Seed: 0x51a7c0de; instructions: ADDI, LD, ADD, SD, SLLI, BEQ, BNE
+====================================================
+INPUT mem[0] = 9e36d400d2683d3b
+INPUT mem[1] = 6c29cc5ce1eeb72d
+INPUT mem[2] = d66a99a82ea4bbe7
+INPUT mem[3] = 82d8e66b5cace541
+INPUT mem[4] = c0900d23e7b5ba99
+INPUT mem[5] = 4c30efaa69756e48
+INPUT mem[6] = 533d8ed6be00cb05
+INPUT mem[7] = 4b672e157a1ef1a7
+Expected final sum = 0f09da2bc8f37b1d
+Expected WB events = 72; expected stores = 26
+========== LOADED PROGRAM (first 28 words) ==========
+IMEM[0] @ PC 0 = 00000513
+IMEM[1] @ PC 4 = 00800593
+IMEM[2] @ PC 8 = 04000613
+IMEM[3] @ PC 12 = 08000993
+IMEM[4] @ PC 16 = 0c000a93
+IMEM[5] @ PC 20 = 00000693
+IMEM[6] @ PC 24 = 00053703
+IMEM[7] @ PC 28 = 00e686b3
+IMEM[8] @ PC 32 = 00d63023
+IMEM[9] @ PC 36 = 00d9b023
+IMEM[10] @ PC 40 = 00171a13
+IMEM[11] @ PC 44 = 014ab023
+IMEM[12] @ PC 48 = 00850513
+IMEM[13] @ PC 52 = 00860613
+IMEM[14] @ PC 56 = 00898993
+IMEM[15] @ PC 60 = 008a8a93
+IMEM[16] @ PC 64 = fff58593
+IMEM[17] @ PC 68 = fc059ae3
+IMEM[18] @ PC 72 = 10d03023
+IMEM[19] @ PC 76 = ff89b783
+IMEM[20] @ PC 80 = 00f69c63
+IMEM[21] @ PC 84 = 07b00813
+IMEM[22] @ PC 88 = 00f68463
+IMEM[23] @ PC 92 = 3e700893
+IMEM[24] @ PC 96 = 11003423
+IMEM[25] @ PC 100 = 00000463
+IMEM[26] @ PC 104 = 3e700893
+IMEM[27] @ PC 108 = 00000013
+=====================================================
+[40000] Reset released.
+[PASS WB #1] x10 = 0000000000000000
+[PASS WB #2] x11 = 0000000000000008
+[PASS WB #3] x12 = 0000000000000040
+[PASS WB #4] x19 = 0000000000000080
+[PASS WB #5] x21 = 00000000000000c0
+[PASS WB #6] x13 = 0000000000000000
+[PASS WB #7] x14 = 9e36d400d2683d3b
+[PASS WB #8] x13 = 9e36d400d2683d3b
+[PASS STORE #1] mem[8] = 9e36d400d2683d3b
+[PASS STORE #2] mem[16] = 9e36d400d2683d3b
+[PASS WB #9] x20 = 3c6da801a4d07a76
+[PASS STORE #3] mem[24] = 3c6da801a4d07a76
+[PASS WB #10] x10 = 0000000000000008
+[PASS WB #11] x12 = 0000000000000048
+[PASS WB #12] x19 = 0000000000000088
+[BRANCH] PC=68 rs1=0000000000000007 rs2=0000000000000000 funct3=001 cond=1 redirect=1 target=24
+[PASS BRANCH] PC=68 taken=1 target=24
+[PASS WB #13] x21 = 00000000000000c8
+[REDIRECT] #1 target=24 current_PC=80
+[PASS WB #14] x11 = 0000000000000007
+[PASS REDIRECT PC] PC reached 24
+[PASS WB #15] x14 = 6c29cc5ce1eeb72d
+[PASS WB #16] x13 = 0a60a05db456f468
+[PASS STORE #4] mem[9] = 0a60a05db456f468
+[PASS STORE #5] mem[17] = 0a60a05db456f468
+[PASS WB #17] x20 = d85398b9c3dd6e5a
+[PASS STORE #6] mem[25] = d85398b9c3dd6e5a
+[PASS WB #18] x10 = 0000000000000010
+[PASS WB #19] x12 = 0000000000000050
+[PASS WB #20] x19 = 0000000000000090
+[BRANCH] PC=68 rs1=0000000000000006 rs2=0000000000000000 funct3=001 cond=1 redirect=1 target=24
+[PASS BRANCH] PC=68 taken=1 target=24
+[PASS WB #21] x21 = 00000000000000d0
+[REDIRECT] #2 target=24 current_PC=80
+[PASS WB #22] x11 = 0000000000000006
+[PASS REDIRECT PC] PC reached 24
+[PASS WB #23] x14 = d66a99a82ea4bbe7
+[PASS WB #24] x13 = e0cb3a05e2fbb04f
+[PASS STORE #7] mem[10] = e0cb3a05e2fbb04f
+[PASS STORE #8] mem[18] = e0cb3a05e2fbb04f
+[PASS WB #25] x20 = acd533505d4977ce
+[PASS STORE #9] mem[26] = acd533505d4977ce
+INFO: [USF-XSim-96] XSim completed. Design snapshot 'tb_core_behav' loaded.
+INFO: [USF-XSim-97] XSim simulation ran for 1000ns
+launch_simulation: Time (s): cpu = 00:00:08 ; elapsed = 00:00:11 . Memory (MB): peak = 2544.980 ; gain = 0.000
