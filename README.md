@@ -1,8 +1,8 @@
 # 5-Stage Pipelined RV64I-Subset Processor
 
-A 64-bit pipelined processor implemented in Verilog and simulated in **Xilinx Vivado XSim**. The design is organized around a five-stage `IF → ID → EX → MEM → WB` datapath, with particular attention to the load/store path, pipeline hazards, forwarding, and branching.
+A 64-bit pipelined processor implemented in Verilog and simulated in **Xilinx Vivado XSim**. The design is organized around a five-stage `IF → ID → EX → MEM → WB` datapath, with particular attention to the load/store path, pipeline hazards, forwarding, and branching. This is designed, integrated and debugged by me with assistance from Claude and ChatGPT for design discussion, code review, debugging help, iterations and for drafts of some modules and the testbenches.
 
-> **Scope:** This is an RV64I-subset implementation. The supported and verified instruction scope is listed separately below. Results reflect completed tests; further validation and refinements are ongoing.
+> **Scope:** This is an RV64I-subset implementation. The supported and verified instruction scope is listed separately below. Further validation and refinements are ongoing.
 
 ## 1. Architecture:
 
@@ -30,7 +30,7 @@ The core uses four inter-stage registers:
 
 - **`IF_ID[95:0]`** — fetched PC and 32-bit instruction.
 - **`ID_EX[285:0]`** — source/destination register indices, control signals, `funct3`, PC, register operands, and immediate.
-- **`EX_MEM[220:0]`** — memory/writeback controls, destination, ALU result, branch/jump redirect control and target, flags, and forwarded store data.
+- **`EX_MEM[220:0]`** — memory/writeback controls, destination, ALU result, branch redirect control and target, flags, and forwarded store data.
 - **`MEM_WB[135:0]`** — register-write controls, destination, memory-read data, and ALU result.
 
 ## 2. RTL modules:
@@ -49,7 +49,7 @@ Key internal signals:
 - `pc_mux_control`, `new_pc`: redirect control and computed target, pipelined through EX/MEM for the PC update.
 - `which_data`: writeback selection between `mem_wb_mem_data` and `mem_wb_alu_result`, controlled by `mem_wb_data_mem_or_from_alu`.
 
-The pipeline control inserts bubbles by clearing yhe ID/EX control signals on a load-use stall or branch resolution, and places a NOP in IF/ID during the branch/registered-redirect handling path.
+The pipeline control inserts bubbles by clearing the ID/EX control signals on a load-use stall or branch resolution, and places a NOP in IF/ID during the branch/registered-redirect handling path.
 
 ### `pc.v` — program counter
 
@@ -157,7 +157,7 @@ RTL was simulated in **Xilinx Vivado XSim**. The following summarizes recorded r
 ### Included integration test assets
 
 - `verification/15_instr_test/` — 15 instruction program with equivalent assembly instructions, testbench used and recorded console results.
-- `verification/25_instr_test/` — 27 instruction program with equivalent assembly instructions, testbench used and recorded console results.
+- `verification/27_instr_test/` — 27 instruction program with equivalent assembly instructions, testbench used and recorded console results.
 
 The testbenches construct reference results and check writeback/store event ordering, control flow, PC transitions, register state, and memory state and are created using ChatGPT. The recorded results are for the runs documented above;
 
