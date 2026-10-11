@@ -1,0 +1,27 @@
+addi x10, x0, 0
+addi x11, x0, 8
+addi x12, x0, 64
+addi x19, x0, 128
+addi x21, x0, 192
+addi x13, x0, 0
+ld   x14, 0(x10)
+add  x13, x13, x14
+sd   x13, 0(x12)
+sd   x13, 0(x19)
+slli x20, x14, 1
+sd   x20, 0(x21)
+addi x10, x10, 8
+addi x12, x12, 8
+addi x19, x19, 8
+addi x21, x21, 8
+addi x11, x11, -1
+bne  x11, x0, -44
+sd   x13, 256(x0)
+ld   x15, -8(x19)
+bne  x13, x15, +24
+addi x16, x0, 123
+beq  x13, x15, +8
+addi x17, x0, 999
+sd   x16, 264(x0)
+beq  x0, x0, +8
+addi x17, x0, 999
