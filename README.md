@@ -156,8 +156,8 @@ RTL was simulated in **Xilinx Vivado XSim**. The following summarizes recorded r
 
 ### Included integration test assets
 
-- `verification/15_word/` — 15-word directed program, assembly/disassembly, instruction image, testbench, and recorded results.
-- `verification/prefix_sum/` — loop-based prefix-sum program, instruction image, self-checking testbench, and recorded results.
+- `verification/15_instr_test/` — 15 instruction program with equivalent assembly instructions, testbench used and recorded console results.
+- `verification/25_instr_test/` — 27 instruction program with equivalent assembly instructions, testbench used and recorded console results.
 
 The testbenches construct reference results and check writeback/store event ordering, control flow, PC transitions, register state, and memory state and are created using ChatGPT. The recorded results are for the runs documented above;
 
@@ -165,7 +165,8 @@ The testbenches construct reference results and check writeback/store event orde
 
 ```text
 rtl/                         Verilog processor modules
-verification/15_word/        Directed integration program, testbench, results
-verification/prefix_sum/     Loop-based integration program, testbench, results
+verification/15_instr_test/  Directed integration program, testbench, results
+verification/27_instr_test/  Loop-based integration program, testbench, results
+DataOperatedOn.txt           The three 64 bit data used for the text (in Data Memory)
 README.md                    Architecture, signal-level module notes, scope, and tests
 ```
