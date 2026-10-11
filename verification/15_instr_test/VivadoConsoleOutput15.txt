@@ -1,0 +1,109 @@
+# run 1000ns
+====================================================
+ RV64I 15-WORD PIPELINE / MEMORY VERIFICATION
+ Instructions: LD, ADD, SD, SLLI, ADDI, BEQ, BNE
+ Input: mem[0]=5, mem[1]=7
+ Expected writes=7; stores=3; branches=3; redirects=2; load-use stalls=1
+====================================================
+Expected final registers: x1=5 x2=7 x3=12 x4=24 x7=36 x10=8 x11=11
+Expected memory: mem[8]=12 mem[9]=24 mem[10]=36
+
+========== LOADED 15-WORD PROGRAM ==========
+IMEM[0] PC=0 WORD=00003083 EXPECTED=00003083
+IMEM[1] PC=4 WORD=00800513 EXPECTED=00800513
+IMEM[2] PC=8 WORD=00803103 EXPECTED=00803103
+IMEM[3] PC=12 WORD=002081b3 EXPECTED=002081b3
+IMEM[4] PC=16 WORD=04303023 EXPECTED=04303023
+IMEM[5] PC=20 WORD=00119213 EXPECTED=00119213
+IMEM[6] PC=24 WORD=00b00593 EXPECTED=00b00593
+IMEM[7] PC=28 WORD=04403423 EXPECTED=04403423
+IMEM[8] PC=32 WORD=004183b3 EXPECTED=004183b3
+IMEM[9] PC=36 WORD=00108463 EXPECTED=00108463
+IMEM[10] PC=40 WORD=06300893 EXPECTED=06300893
+IMEM[11] PC=44 WORD=00109463 EXPECTED=00109463
+IMEM[12] PC=48 WORD=00209463 EXPECTED=00209463
+IMEM[13] PC=52 WORD=06300913 EXPECTED=06300913
+IMEM[14] PC=56 WORD=04703823 EXPECTED=04703823
+[PASS IMEM] All 15 program words match.
+==============================================
+[40000] Reset released.
+[PASS WB #1] x1 = 0000000000000005
+[PASS WB #2] x10 = 0000000000000008
+[PASS WB #3] x2 = 0000000000000007
+[PASS WB #4] x3 = 000000000000000c
+[PASS STORE #1] mem[8] = 000000000000000c mask=ff
+[PASS WB #5] x4 = 0000000000000018
+[PASS WB #6] x11 = 000000000000000b
+[PASS STORE #2] mem[9] = 0000000000000018 mask=ff
+[BRANCH] PC=36 operands=(0000000000000005,0000000000000005) funct3=000 actual_taken=1 target=44
+[PASS BRANCH] PC=36 taken=1 target=44
+[REDIRECT] #1 target=44 current_PC=48
+[PASS REDIRECT] target=44
+[PASS WB #7] x7 = 0000000000000024
+[PASS REDIRECT PC] PC reached 44
+[BRANCH] PC=44 operands=(0000000000000005,0000000000000005) funct3=001 actual_taken=0 target=52
+[PASS BRANCH] PC=44 taken=0 target=52
+[BRANCH] PC=48 operands=(0000000000000005,0000000000000007) funct3=001 actual_taken=1 target=56
+[PASS BRANCH] PC=48 taken=1 target=56
+[REDIRECT] #2 target=56 current_PC=60
+[PASS REDIRECT] target=56
+[PASS REDIRECT PC] PC reached 56
+[PASS STORE #3] mem[10] = 0000000000000024 mask=ff
+
+========== FINAL REGISTER CHECKS ==========
+[PASS REG] x0 = 0000000000000000
+[PASS REG] x1 = 0000000000000005
+[PASS REG] x2 = 0000000000000007
+[PASS REG] x3 = 000000000000000c
+[PASS REG] x4 = 0000000000000018
+[PASS REG] x5 = 0000000000000000
+[PASS REG] x6 = 0000000000000000
+[PASS REG] x7 = 0000000000000024
+[PASS REG] x8 = 0000000000000000
+[PASS REG] x9 = 0000000000000000
+[PASS REG] x10 = 0000000000000008
+[PASS REG] x11 = 000000000000000b
+[PASS REG] x12 = 0000000000000000
+[PASS REG] x13 = 0000000000000000
+[PASS REG] x14 = 0000000000000000
+[PASS REG] x15 = 0000000000000000
+[PASS REG] x16 = 0000000000000000
+[PASS REG] x17 = 0000000000000000
+[PASS REG] x18 = 0000000000000000
+[PASS REG] x19 = 0000000000000000
+[PASS REG] x20 = 0000000000000000
+[PASS REG] x21 = 0000000000000000
+[PASS REG] x22 = 0000000000000000
+[PASS REG] x23 = 0000000000000000
+[PASS REG] x24 = 0000000000000000
+[PASS REG] x25 = 0000000000000000
+[PASS REG] x26 = 0000000000000000
+[PASS REG] x27 = 0000000000000000
+[PASS REG] x28 = 0000000000000000
+[PASS REG] x29 = 0000000000000000
+[PASS REG] x30 = 0000000000000000
+[PASS REG] x31 = 0000000000000000
+
+========== FULL DATA-MEMORY CHECK ==========
+[PASS MEM] All 512 data-memory words match the reference model.
+
+========== PIPELINE / CONTROL ASSERTIONS ==========
+Instruction-image errors : 0
+Writebacks               : 7 expected 7
+Stores                   : 3 expected 3
+Branches                 : 3 expected 3
+Taken / not taken        : 2 / 1 expected 2 / 1
+Redirects                : 2 expected 2
+PC transitions checked   : 40; errors=0
+Load-use stalls          : 1 expected 1
+EX/MEM store forwarding  : 1
+MEM/WB store forwarding  : 1
+Wrong-path writes x17/x18: 0
+Errors: WB=0 STORE=0 BRANCH=0 REDIRECT=0 REDIRECT-PC=0 STALL=0 REG=0 MEM=0
+====================================================
+ALL 15-WORD VERIFICATION CHECKS PASSED
+====================================================
+$finish called at time : 832 ns : File "E:/risc/risc.srcs/sim_1/new/tb.v" Line 320
+INFO: [USF-XSim-96] XSim completed. Design snapshot 'tb_core_behav' loaded.
+INFO: [USF-XSim-97] XSim simulation ran for 1000ns
+launch_simulation: Time (s): cpu = 00:00:08 ; elapsed = 00:00:13 . Memory (MB): peak = 2544.980 ; gain = 0.000
